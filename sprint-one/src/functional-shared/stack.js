@@ -1,3 +1,11 @@
+var Stack = function() {
+  var stack = {};
+  _.extend(stack, stackMethods);
+  stack.storage = {};
+  stack.counter = 0;
+  return stack;
+};
+
 var stackMethods = {
   push: function(value) {
     this.storage[this.counter] = value;
@@ -5,7 +13,7 @@ var stackMethods = {
   },
   pop: function() {
     if (this.counter === 0) {
-      return;
+      return 0;
     }
     this.counter--;
     var result = this.storage[this.counter];
@@ -17,9 +25,5 @@ var stackMethods = {
   }
 };
 
-var Stack = function() {
-  var stack = Object.create(stackMethods);
-  stack.storage = {};
-  stack.counter = 0;
-  return stack;
-};
+
+
