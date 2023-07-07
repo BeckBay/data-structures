@@ -3,15 +3,26 @@ var BinarySearchTree = function(value) {
   tree.value = value;
   tree.left = null;
   tree.right = null;
+  return tree;
 };
 
 var bstPrototype = {};
 
-BinarySearchTree.prototype.insert = function (node) {
-  var i = this.tree;
-  while (i.left !== undefined || i.right !== undefined) {
+//if node is less than value
+  //if left is empty
+    //go left
+  //else ?
+
+//if node is greater than value
+  //if right is empty
+    //go right
+  //else ?
+
+bstPrototype.insert = function (node) {
+  var i = this;
+  while (i !== undefined) {
     if (node < i.value) {
-      if (i.left !== undefined) {
+      if (i.left !== null) {
         i = i.left;
         continue;
       } else {
@@ -19,7 +30,7 @@ BinarySearchTree.prototype.insert = function (node) {
         return;
       }
     } else {
-      if (i.right !== undefined) {
+      if (i.right !== null) {
         i = i.right;
         continue;
       } else {
@@ -36,17 +47,49 @@ BinarySearchTree.prototype.insert = function (node) {
 
 };
 
-//      5      4
-//     /     /  \
-//    4     2    5
-//   /
-//  2
-//
-BinarySearchTree.prototype.contains = function (node) {
 
+bstPrototype.contains = function (node, currentNode) {
+  if (!currentNode) {
+    var currentNode = this;
+  }
+
+  if (currentNode.value === node) {
+    return true;
+  } else if (currentNode.value > node) {
+    // traverse right
+    if (!currentNode.left) {
+      return false;
+    }
+    return this.contains(node, currentNode.left);
+  } else {
+    // traverse left
+    if (!currentNode.right) {
+      return false;
+    }
+    return this.contains(node, currentNode.right);
+  }
+
+  return false;
+
+  if (node === this.value || node === this.left || node === this.right) {
+    return true;
+  }
+  return false;
 };
 
-BinarySearchTree.prototype.depthFirstLog = function (node) {
+bstPrototype.depthFirstLog = function (func, node) {
+  if (!node) {
+    node = this;
+  }
+
+  func(node.value);
+
+  if (node.left != null) {
+    this.depthFirstLog(func, node.left);
+  }
+  if (node.right != null) {
+    this.depthFirstLog(func, node.right);
+  }
 
 };
 
