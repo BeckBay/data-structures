@@ -23,7 +23,6 @@ HashTable.prototype.insert = function(k, v) {
       // already has collisions value
       // 1: [v1, 'val1']
       //1: [[v1, 'val1'], [v2, 'val2']]
-    console.log('pusher')
     } else { //new collision
       var collisionList = [];
       collisionList.push(getIndex, [k, v]);
@@ -46,7 +45,6 @@ HashTable.prototype.retrieve = function(k) {
       getIndex.forEach((keyValuePair) => {
         console.log(keyValuePair, k);
         if (keyValuePair[0] === k) {
-          console.log('keyvp', keyValuePair)
           result = keyValuePair[1];
         }
       });
