@@ -7,43 +7,54 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  // var geta = this._storage.get(index) || [];
-  // for (var i = 0; i < geta.length; i++) {
-  //   if (geta[i][0] === k) {
-  //     geta[i][1] = v;
-  //     return;
-  //   }
-  // }
-  // geta.push([k, v]);
-  // this._storage.set(index, geta);
 
-  // if (this._storage.get(index)) {
-  //   if (Array.isArray(this._storage.get(index))) {
-  //     this._storage.get(index).push(v);
-  //   } else {
-  //     this._storage.set(index, new LimitedArray());
-  //     this._storage.set(index, [this._storage.get(index), v]);
-  //   }
-  // } else {
-  this._storage.set(index, v);
-  // }
+  if (!this._storage.get(index)) {
+    this._storage.set(index, [k, v]);
+  } else {
+    var getIndex = this._storage.get(index);
+    if (k === getIndex[0]) {
+      this._storage.set(index, [k, v]);
+      return;
+    }
 
+    if (Array.isArray(getIndex[0])) {
+      getIndex.push([k, v]);
+      this._storage.set(index, getIndex);
+      // already has collisions value
+      // 1: [v1, 'val1']
+      //1: [[v1, 'val1'], [v2, 'val2']]
+    console.log('pusher')
+    } else { //new collision
+      var collisionList = [];
+      collisionList.push(getIndex, [k, v]);
+      this._storage.set(index, collisionList);
+    }
+  }
 
-  // this._storage.each((val, k) => {
-  //   console.log(k, ':', val);
-  // });
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  if (Array.isArray(this._storage.get(index))) {
-    this._storage.get(index).each((e) => {
-      if (e === k) {
-        return e;
-      }
-    });
+
+  if (!this._storage.get(index)) {
+    return;
+  } else {
+    var getIndex = this._storage.get(index);
+
+    if (Array.isArray(getIndex[0])) {
+      var result;
+      getIndex.forEach((keyValuePair) => {
+        console.log(keyValuePair, k);
+        if (keyValuePair[0] === k) {
+          console.log('keyvp', keyValuePair)
+          result = keyValuePair[1];
+        }
+      });
+      return result;
+    } else {
+      return getIndex[1];
+    }
   }
-  return this._storage.get(index);
 };
 
 HashTable.prototype.remove = function(k) {
