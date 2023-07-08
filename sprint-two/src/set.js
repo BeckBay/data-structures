@@ -1,10 +1,6 @@
 var Set = function() {
   var set = Object.create(setPrototype);
   set._storage = new Map();
-  set._storage.set(5, 1);
-  set._storage[5] += 1;
-  // Map
-  // 5: 2
   return set;
 };
 
@@ -25,6 +21,17 @@ setPrototype.contains = function(item) {
 setPrototype.remove = function(item) {
   this._storage.delete(item);
 };
+
+setPrototype.union = function(set2) {
+  var unionSet = new Set();
+  this._storage.forEach((key) => {
+    if (set2._storage.has(key)) {
+      unionSet.add(key);
+    }
+  });
+  return unionSet;
+};
+
 
 /*
  * Complexity: What is the time complexity of the above functions?

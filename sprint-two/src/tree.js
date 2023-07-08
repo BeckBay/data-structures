@@ -27,7 +27,27 @@ treeMethods.contains = function(target) {
   return false;
 };
 
+//// 5     2
+//  2  3     4
+//     1
 
+treeMethods.height = function(currentNode, height) {
+  if (!currentNode) {
+    console.log('Original call');
+    currentNode = this;
+    height = 0;
+  }
+  console.log('currentNode: ', currentNode);
+  var maxHeight = height;
+  currentNode.children.forEach((c) => {
+    var subHeight = treeMethods.height(c, height + 1);
+    if (subHeight > maxHeight) {
+      maxHeight = subHeight;
+    }
+  });
+
+  return maxHeight;
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?

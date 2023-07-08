@@ -24,4 +24,13 @@ describe('set', function() {
     expect(set.contains('Mel Gibson')).to.equal(false);
   });
 
+  it('should union two sets', function() {
+    set.add(1);
+    var set2 = new Set();
+    set2.add(1);
+    set.add(3);
+    set2.add(4);
+    expect(set.union(set2).contains(1)).to.equal(true);
+    expect(set.union(set2).contains(4)).to.equal(false);
+  });
 });

@@ -50,6 +50,24 @@ describe('linkedList', function() {
     linkedList.removeHead();
     expect(linkedList.contains(4)).to.equal(false);
   });
-
+  it('should remove the tail node', function() {
+    linkedList.addToTail(4);
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    linkedList.removeTail();
+    expect(linkedList.contains(6)).to.equal(false);
+  });
+  it('should invoke callback function on every node', function() {
+    linkedList.addToTail(4);
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    var list = '';
+    linkedList.each((value) => {
+      list += value.toString();
+    });
+    expect(list).to.equal('456');
+  });
   // add more tests here to test the functionality of linkedList
 });
+
+
