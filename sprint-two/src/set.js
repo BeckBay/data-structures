@@ -35,4 +35,9 @@ setPrototype.union = function(set2) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+add: o(1) constant
+contains: o(1) constant
+remove: o(1) constant
+union: o(n) linear
  */

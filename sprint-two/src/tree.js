@@ -2,8 +2,7 @@ var Tree = function(value) {
   var newTree = {};
   newTree.value = value;
 
-  // your code here
-  newTree.children = []; // fix me
+  newTree.children = [];
   _.extend(newTree, treeMethods);
   return newTree;
 };
@@ -27,17 +26,13 @@ treeMethods.contains = function(target) {
   return false;
 };
 
-//// 5     2
-//  2  3     4
-//     1
 
 treeMethods.height = function(currentNode, height) {
   if (!currentNode) {
-    console.log('Original call');
     currentNode = this;
     height = 0;
   }
-  console.log('currentNode: ', currentNode);
+
   var maxHeight = height;
   currentNode.children.forEach((c) => {
     var subHeight = treeMethods.height(c, height + 1);
@@ -51,4 +46,7 @@ treeMethods.height = function(currentNode, height) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
- */
+addChild: o(1) constant
+contains: o(n) linear
+height: o(n) linear
+*/

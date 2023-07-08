@@ -6,6 +6,9 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
+  if (k === undefined || k === null) {
+    return 'Invalid Key!';
+  }
   var index = getIndexBelowMaxForKey(k, this._limit);
 
   if (!this._storage.get(index)) {
@@ -20,10 +23,7 @@ HashTable.prototype.insert = function(k, v) {
     if (Array.isArray(getIndex[0])) {
       getIndex.push([k, v]);
       this._storage.set(index, getIndex);
-      // already has collisions value
-      // 1: [v1, 'val1']
-      //1: [[v1, 'val1'], [v2, 'val2']]
-    } else { //new collision
+    } else {
       var collisionList = [];
       collisionList.push(getIndex, [k, v]);
       this._storage.set(index, collisionList);
@@ -64,6 +64,11 @@ HashTable.prototype.remove = function(k) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+insert: o(1) constant
+retrieve: o(1) assuming there is no collision, else o(n)
+remove: o(1) constant
+
  */
 
 

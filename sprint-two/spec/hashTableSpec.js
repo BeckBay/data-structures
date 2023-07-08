@@ -73,4 +73,10 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
+  it('should handle null keys', function() {
+    expect(hashTable.insert()).to.equal('Invalid Key!');
+
+  });
+
 });

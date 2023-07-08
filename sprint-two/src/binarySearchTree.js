@@ -8,16 +8,6 @@ var BinarySearchTree = function(value) {
 
 var bstPrototype = {};
 
-//if node is less than value
-  //if left is empty
-    //go left
-  //else ?
-
-//if node is greater than value
-  //if right is empty
-    //go right
-  //else ?
-
 bstPrototype.insert = function (node) {
   var i = this;
   while (i !== undefined) {
@@ -56,13 +46,11 @@ bstPrototype.contains = function (node, currentNode) {
   if (currentNode.value === node) {
     return true;
   } else if (currentNode.value > node) {
-    // traverse right
     if (!currentNode.left) {
       return false;
     }
     return this.contains(node, currentNode.left);
   } else {
-    // traverse left
     if (!currentNode.right) {
       return false;
     }
@@ -90,9 +78,31 @@ bstPrototype.depthFirstLog = function (func, node) {
   if (node.right != null) {
     this.depthFirstLog(func, node.right);
   }
-
 };
+
+
+
+
+bstPrototype.breadthFirstLog = function (func) {
+  var queue = [];
+  queue.push(this);
+  while (queue.length > 0) {
+    var i = queue.shift();
+    func(i.value);
+    if (i.left) {
+      queue.push(i.left);
+    }
+    if (i.right) {
+      queue.push(i.right);
+    }
+  }
+};
+
 
 /*
  * Complexity: What is the time complexity of the above functions?
+insert: o(log n) logarithmic
+contains: o(log n) logarithmic
+depthFirstLog: o(n) linear
+breadthFirstLog: o(n) linear
  */
